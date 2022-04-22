@@ -35,7 +35,7 @@ internal static class Program
             new Regex(@"class=""CurrentConditions--tempValue--3a50n"">([0-9]{1,3})");
 
         var currentWeather =
-            new Regex(@"class=""CurrentConditions--phraseValue--2Z18W"">([\w\s]+)</div>");
+            new Regex(@"class=""CurrentConditions--phraseValue--2Z18W"">(.+?)</div>");
 
         var request = new HttpClient
         {
