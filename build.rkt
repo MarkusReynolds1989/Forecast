@@ -4,8 +4,7 @@
 #lang racket/base
 (require racket/system)
 
-(thread (lambda () (system "dotnet publish -r win-x64 -c release --self-contained true")))
-(thread (lambda () (system "dotnet publish -r win-x86 -c release --self-contained true")))
+(system "dotnet publish -r win-x64 -c release --self-contained true")
 
 #|
     Cross platform compilation not yet supported.

@@ -1,8 +1,7 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Forecast;
-
-using System.Text.RegularExpressions;
 
 internal static class Program
 {
