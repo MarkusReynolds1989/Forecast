@@ -41,18 +41,14 @@ internal static class Program
             Timeout = TimeSpan.FromSeconds(10)
         };
 
-        var forecastResult =
-            await request.GetAsync(ForecastTemp(zip));
+        var forecastContent = request.GetAsync(ForecastTemp(zip)).Result.Content.ReadAsStringAsync();
+        var currentContent = request.GetAsync(CurrentWeather(zip)).Result.Content.ReadAsStringAsync();
 
-        var currentResult =
-            await request.GetAsync(CurrentWeather(zip));
+        await Task.WhenAll(forecastContent, currentContent);
 
-        var forecastContent = await forecastResult.Content.ReadAsStringAsync();
-        var currentContent = await currentResult.Content.ReadAsStringAsync();
-
-        var tenDayMatches = tenDayTemp.Matches(forecastContent);
-        var currentTemp = currentWeatherTemp.Matches(currentContent);
-        var weather = currentWeather.Matches(currentContent);
+        var tenDayMatches = tenDayTemp.Matches(forecastContent.Result);
+        var currentTemp = currentWeatherTemp.Matches(currentContent.Result);
+        var weather = currentWeather.Matches(currentContent.Result);
 
         if (tenDayMatches.Count > 0 && currentTemp.Count > 0)
         {
